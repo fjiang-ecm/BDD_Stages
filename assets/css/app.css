@@ -1,3 +1,31 @@
 body {
     background-color: lightgray;
+    color: white;
+}
+
+.login-page{
+    background-color: lightgray;
+    margin: auto;
+    max-width: none;
+}
+
+.card{
+    margin: auto;
+    width: 300px;
+    text-align: center;
+}
+
+.bg-monVert {
+    background-color: #14814b;
+    color: #fff !important;
+}
+
+.bg-blue-grey {
+    background-color: #607d8b !important;
+    color: #fff;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
 }

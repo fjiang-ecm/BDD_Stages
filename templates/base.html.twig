@@ -2,11 +2,50 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <meta name="Content-Type" content="UTF-8">
+        <meta name="Content-Language" content="fr">
+        <meta name="Description" content="Plateforme de recensement des stages">
+        <meta name="Keywords" content="centrale, marseille, centrale marseille, annuaire, annuaire de stage, GInfo">
+        <meta name="Copyright" content="GINFO">
+        <title>{% block titre_page %}BDD Stages{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('build/vendor.css') }}" />
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
+        {% block page_css %}
+        {% endblock %}
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-    <body>
-        {% block body %}{% endblock %}
+
+    <body {% block additionnal_body_block %}{% endblock %} class="theme-green {% block additionnal_body_class %}{% endblock %}">
+        <nav class="navbar" style="background-color: #14814b;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">BDD Stages</a>
+                </div>
+            </div>
+        </nav>
+
+        <section>
+            <aside id="leftsidebar" class="sidebar">
+                <div class="menu">
+                    <ul class="list">
+
+                    </ul>
+                </div>
+            </aside>
+        </section>
+
+        <section class="content">
+            {% block content %}
+            {% endblock %}
+        </section>
+
+        <script src="{{ asset('build/vendor.js') }}"></script>
+        <script src="{{ asset('build/app.js') }}"></script>
+        <script src="{{ asset('build/runtime.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

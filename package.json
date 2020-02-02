@@ -23,6 +23,8 @@
         "bootstrap-select": "^1.13.12",
         "jquery": "^3.4.1",
         "node-waves": "^0.7.6",
-        "popper.js": "^1.16.1"
+        "popper.js": "^1.16.1",
+        "run": "^1.4.0",
+        "watch": "^1.0.2"
     }
 }

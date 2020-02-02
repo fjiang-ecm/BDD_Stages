@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block additionnal_body_class %}ls-closed login-page openbook{% endblock %}
+
+{% block titre_page %}BDD Stages - Acceuil{% endblock %}
+
+{% block content %}
+        <div class="card">
+            <img src="https://wiki.centrale-marseille.fr/ginfo/_detail/logobest.png?id=index" height="100px" width="auto">
+
+            <div class="body">
+                <form id="sign-in" method="post">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input class="form-control" type="text" />
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input class="form-control" type="password" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" value="on" id="remember_me" name="_remember_me" class="filled-in chk-col-blue-grey">
+                        <label for="remember_me">Se souvenir de moi</label>
+                    </div>
+
+                    <div>
+                        <button id="_submit" name="_submit" class="btn btn-block bg-monVert waves-effect" type="submit">Connexion</button>
+                    </div>
+                </form>
+
+                <div>
+                    <a href="https://my.centrale-assos.fr/login" class="btn btn-block bg-blue-grey">Connexion via MyCA</a>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
