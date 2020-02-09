@@ -1,4 +1,4 @@
-body {
+body{
     background-color: lightgray;
     color: white;
 }
@@ -11,7 +11,7 @@ body {
 
 .card{
     margin: auto;
-    width: 300px;
+    width: 400px;
     text-align: center;
 }
 
@@ -28,4 +28,8 @@ body {
 .btn-block {
     display: block;
     width: 100%;
+}
+
+.form-group{
+    text-align: left;
 }
