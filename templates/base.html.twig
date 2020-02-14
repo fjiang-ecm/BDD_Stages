@@ -21,10 +21,21 @@
 
     <body {% block additionnal_body_block %}{% endblock %} class="theme-green {% block additionnal_body_class %}{% endblock %}">
         <nav class="navbar" style="background-color: #14814b;">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">BDD Stages</a>
-                </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">BDD Stages</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted('ROLE_USER') %}
+                        <li>
+                            <a href="{{ path('logout') }}">
+                                <i class="material-icons">power_settings_new</i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="visible-xs jumpline-mobile-menu"><a href="" class="special-icon-navbar"><i class="fas fa-user"></i> Connexion</a></li>
+                </ul>
             </div>
         </nav>
 
