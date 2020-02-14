@@ -21,6 +21,11 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/deconnexion", name="logout")
+     */
+    public function logout(){}
+
+    /**
      * @Route("/inscription", name="security_registration")
      */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder)
