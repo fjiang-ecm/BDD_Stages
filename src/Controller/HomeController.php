@@ -15,11 +15,9 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index()
+    public function login()
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        return $this->render('home/index.html.twig');
     }
 
     /**
@@ -43,6 +41,8 @@ class HomeController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('home/registration.html.twig', [

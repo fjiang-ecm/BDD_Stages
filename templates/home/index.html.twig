@@ -9,13 +9,13 @@
             <img src="https://wiki.centrale-marseille.fr/ginfo/_detail/logobest.png?id=index" height="100px" width="auto">
 
             <div class="body">
-                <form id="sign-in" method="post">
+                <form id="sign-in" action="{{ path('home') }}" method="post">
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input class="form-control" type="text" />
+                            <input class="form-control" type="text" required name="_username" />
                         </div>
                     </div>
 
@@ -24,7 +24,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input class="form-control" type="password" />
+                            <input class="form-control" type="password" required name="_password"/>
                         </div>
                     </div>
 
