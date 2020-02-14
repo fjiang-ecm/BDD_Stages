@@ -42,7 +42,8 @@ class HomeController extends AbstractController
         {
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
-            $user->setPassword($hash);
+            $user->setPassword($hash)
+                ->setRoles(['ROLE_USER']);
 
             $entityManager->persist($user);
             $entityManager->flush();
