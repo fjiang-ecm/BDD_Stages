@@ -9,6 +9,10 @@
             <img src="https://wiki.centrale-marseille.fr/ginfo/_detail/logobest.png?id=index" height="100px" width="auto">
 
             <div class="body">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
                 <form id="sign-in" action="{{ path('home') }}" method="post">
                     <div class="input-group">
                         <span class="input-group-addon">
