@@ -4,12 +4,20 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Internship;
 
 class AppFixtures extends Fixture
 {
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager)
     {
         $a1 = new Category();
@@ -31,11 +39,13 @@ class AppFixtures extends Fixture
 
         for ($i = 1; $i <= 10; $i++){
             $user = new User();
+            $hash = $this->encoder->encodePassword($user, "password$i");
+
             $user->setUserName("user$i")
                 ->setFirstName("Prénom$i")
                 ->setLastName("Nom$i")
                 ->setEmail("prénom$i.nom$i@centrale-marseille.fr")
-                ->setPassword("password$i")
+                ->setPassword($hash)
                 ->setRoles(['ROLE_USER']);
 
             $manager->persist($user);
