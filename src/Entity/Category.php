@@ -34,7 +34,7 @@ class Category
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Internship", mappedBy="category", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Internship", mappedBy="category")
      */
     private $internships;
 
