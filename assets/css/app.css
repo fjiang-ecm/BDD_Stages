@@ -17,7 +17,11 @@ body{
 
 .card{
     margin: auto;
-    width: 90%;
+    width: 95%;
+}
+
+.material-icons{
+    color: #4CAF50;
 }
 
 .bg-monVert {

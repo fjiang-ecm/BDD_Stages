@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Internship;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,8 +13,8 @@ class InternshipController extends AbstractController
      */
     public function index()
     {
-        return $this->render('internship/index.html.twig', [
-            'controller_name' => 'InternshipController',
-        ]);
+        $repo = $this->getDoctrine()->getRepository(Internship::class);
+        $stages = $repo->findAll();
+        return $this->render('internship/index.html.twig', ['stages' => $stages]);
     }
 }
