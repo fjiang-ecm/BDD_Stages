@@ -9,10 +9,15 @@ body{
     max-width: none;
 }
 
-.card{
+.card_log{
     margin: auto;
     width: 400px;
     text-align: center;
+}
+
+.card{
+    margin: auto;
+    width: 90%;
 }
 
 .bg-monVert {
