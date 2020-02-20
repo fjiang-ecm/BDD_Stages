@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block additionnal_body_class %}ls-closed login-page openbook{% endblock %}
+
+{% block titre_page %}BDD Stages - Stages{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header bg-green">
+                    <h2>{{ stage.title }}</h2>
+                </div>
+
+                <div class="body">
+                    <div class="row">
+                        <div class="col-md-9"><p class="font-bold">Etudiant</p> {{ stage.author.firstName }} {{ stage.author.lastName }}</div>
+                        <div class="col-md-3"><p class="font-bold">Catégorie</p> {{ stage.category.name }}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6"><p class="font-bold">Entreprise</p> {{ stage.company }}</div>
+                        <div class="col-md-3"><p class="font-bold">Pays</p> {{ stage.country }}</div>
+                        <div class="col-md-3"><p class="font-bold">Ville / Code Postal</p> {{ stage.city }} {{ stage.postalCode }}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6"><p class="font-bold">Contact</p> {{ stage.contact }}</div>
+                        <div class="col-md-3"><p class="font-bold">Début</p> {{ stage.startedOn | date('d/m/Y') }}</div>
+                        <div class="col-md-3"><p class="font-bold">Fin</p> {{ stage.finishedOn | date('d/m/Y') }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><p class="font-bold">Description</p> {{ stage.description }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
