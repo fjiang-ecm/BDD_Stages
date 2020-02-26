@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Internship;
 use App\Form\InternshipType;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,15 +23,19 @@ class InternshipController extends AbstractController
     /**
      * @Route("/stages", name="internships")
      */
-    public function index()
+    public function index(PaginatorInterface $paginator, Request $request)
     {
         if(!$this->security->isGranted('ROLE_USER'))
         {
             return $this->redirectToRoute('home');
         }
 
-        $repo = $this->getDoctrine()->getRepository(Internship::class);
-        $stages = $repo->findAll();
+        $stages = $paginator->paginate(
+            $this->getDoctrine()->getRepository(Internship::class)->findAll(), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
         return $this->render('internship/index.html.twig', ['stages' => $stages]);
     }
 

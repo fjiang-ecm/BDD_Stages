@@ -48,3 +48,12 @@ nav .material-icons{
 .grey{
     color: #aaa;
 }
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus{
+    color: #4CAF50;
+}
