@@ -209,4 +209,10 @@ class Internship
 
         return $this;
     }
+
+    public function getDuration()
+    {
+        $deltaT = date_diff($this->finishedOn, $this->startedOn);
+        return $deltaT->m;
+    }
 }
