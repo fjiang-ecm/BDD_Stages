@@ -8,16 +8,29 @@ use App\Form\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class HomeController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * @Route("/", name="home", methods={"GET", "POST"})
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
+        if($this->security->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('internships');
+        }
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -39,6 +52,11 @@ class HomeController extends AbstractController
      */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder)
     {
+        if($this->security->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('internships');
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $user = new User();

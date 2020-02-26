@@ -11,15 +11,28 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class UserController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * @Route("/login", name="user_login")
      */
     public function index(Request $request, TokenStorageInterface $tokenStorage, SessionInterface $session, EventDispatcherInterface $dispatcher)
     {
+        if($this->security->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('internships');
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $id = $this->getParameter('oauth_id');
@@ -67,12 +80,10 @@ class UserController extends AbstractController
 
                 $event = new InteractiveLoginEvent($request, $token);
                 $dispatcher->dispatch("security.interactive_login", $event);
-
             }
 
             // Redirection vers l'accueil
             return $this->redirectToRoute('home');
         }
-
     }
 }

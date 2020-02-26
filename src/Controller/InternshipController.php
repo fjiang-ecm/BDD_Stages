@@ -8,14 +8,27 @@ use App\Form\InternshipType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class InternshipController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * @Route("/stages", name="internships")
      */
     public function index()
     {
+        if(!$this->security->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('home');
+        }
+
         $repo = $this->getDoctrine()->getRepository(Internship::class);
         $stages = $repo->findAll();
         return $this->render('internship/index.html.twig', ['stages' => $stages]);
@@ -26,6 +39,11 @@ class InternshipController extends AbstractController
      */
     public function stage($id)
     {
+        if(!$this->security->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('home');
+        }
+
         $stage = $this->getDoctrine()->getRepository(Internship::class)->find($id);
         return $this->render('internship/internship.html.twig', ['stage' => $stage]);
     }
@@ -35,6 +53,11 @@ class InternshipController extends AbstractController
      */
     public function registration(Request $request)
     {
+        if(!$this->security->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('home');
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $internship = new Internship();
