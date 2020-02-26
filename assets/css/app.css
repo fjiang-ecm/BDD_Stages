@@ -18,6 +18,10 @@ body{
     text-align: center;
 }
 
+.material-icons{
+    color: #4CAF50;
+}
+
 nav .material-icons{
     color: white;
 }
