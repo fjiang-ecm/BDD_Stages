@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block titre_page %}BDD Stages - Nouveau Stage{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header bg-green">
+                    <h2>Nouveau Stage</h2>
+                </div>
+
+                <div class="body">
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_row(form.title, {'label': 'Titre', 'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(form.category, {'label': 'Catégorie', 'attr': {'class': 'form-control'}}) }}
+                        <div class="row">
+                            <div class="col-md-6">{{ form_widget(form.company, {'label': 'Entreprise / Laboratoire', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-6">{{ form_widget(form.contact, {'label': 'Contact', 'attr': {'class': 'form-control'}}) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{{ form_widget(form.country, {'label': 'Pays', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-4">{{ form_widget(form.city, {'label': 'Ville', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-4">{{ form_widget(form.postalCode, {'label': 'Code Postal', 'attr': {'class': 'form-control'}}) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Début
+                                {{ form_widget(form.startedOn, {'label': 'Début', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-4">
+                                Fin
+                                {{ form_widget(form.finishedOn, {'label': 'Fin', 'attr': {'class': 'form-control'}}) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                Description
+                                {{ form_widget(form.description, {'placeholder': 'Description du Stage', 'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Soumettre le Stage</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

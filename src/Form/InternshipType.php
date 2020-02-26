@@ -21,8 +21,7 @@ class InternshipType extends AbstractType
             ->add('contact')
             ->add('startedOn')
             ->add('finishedOn')
-            ->add('author')
-            ->add('category')
+            ->add('category' )
         ;
     }
 
