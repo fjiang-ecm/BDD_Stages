@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InternshipRepository")
@@ -72,6 +73,11 @@ class Internship
      * @ORM\Column(type="date")
      */
     private $finishedOn;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $duration;
 
     public function getId(): ?int
     {
@@ -210,9 +216,16 @@ class Internship
         return $this;
     }
 
-    public function getDuration()
+    public function setDuration() : self
     {
         $deltaT = date_diff($this->finishedOn, $this->startedOn);
-        return $deltaT->m;
+        $this->duration = $deltaT->m;
+
+        return $this;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
     }
 }

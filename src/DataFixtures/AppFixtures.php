@@ -91,7 +91,8 @@ class AppFixtures extends Fixture
                 ->setCompany($faker->company)
                 ->setContact($faker->name)
                 ->setStartedOn($faker->dateTimeThisDecade($max = 'now', $timezone = null))
-                ->setFinishedOn($faker->dateTimeBetween($startDate = $internship->getStartedOn(), $endDate = 'now', $timezone = null));
+                ->setFinishedOn($faker->dateTimeBetween($startDate = $internship->getStartedOn(), $endDate = 'now', $timezone = null))
+                ->setDuration();
 
             $manager->persist($internship);
 
@@ -106,7 +107,8 @@ class AppFixtures extends Fixture
                         ->setCompany($faker->company)
                         ->setContact($faker->name)
                         ->setStartedOn($faker->dateTimeThisDecade($max = 'now', $timezone = null))
-                        ->setFinishedOn($faker->dateTimeBetween($startDate = $internship->getStartedOn(), $endDate = 'now', $timezone = null));
+                        ->setFinishedOn($faker->dateTimeBetween($startDate = $internship->getStartedOn(), $endDate = 'now', $timezone = null))
+                        ->setDuration();
 
             $manager->persist($internship);
         }

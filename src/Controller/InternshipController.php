@@ -58,7 +58,7 @@ class InternshipController extends AbstractController
     /**
      * @Route("/stage/{id}", name="internship")
      */
-    public function stage($id)
+    public function stage($id, PaginatorInterface $paginator, Request $request)
     {
         if(!$this->security->isGranted('ROLE_USER'))
         {
@@ -66,7 +66,27 @@ class InternshipController extends AbstractController
         }
 
         $stage = $this->getDoctrine()->getRepository(Internship::class)->find($id);
-        return $this->render('internship/internship.html.twig', ['stage' => $stage]);
+
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+
+        $qb->select('i')
+            ->from('App:Internship', 'i')
+            ->where('i.id != :id AND i.category = :category AND i.duration = :duration')
+            ->setParameter('id', $id)
+            ->setParameter('category', $stage->getCategory())
+            ->setParameter('duration', $stage->getDuration());
+        $query = $qb->getQuery();
+
+        $stages = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            4
+        );
+
+        return $this->render('internship/internship.html.twig', [
+            'stage' => $stage,
+            'stages' => $stages
+            ]);
     }
 
     /**
@@ -89,7 +109,8 @@ class InternshipController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $internship->setAuthor($this->getUser());
+            $internship->setAuthor($this->getUser())
+                        ->setDuration();
 
             $entityManager->persist($internship);
             $entityManager->flush();

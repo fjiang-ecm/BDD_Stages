@@ -69,3 +69,17 @@ td a{
 .navigation{
     text-align: center;
 }
+
+.of_card .header h2{
+    padding: 20px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.of_card .body .header{
+    padding: 8px;
+}
+
+.header a{
+    color: white;
+}

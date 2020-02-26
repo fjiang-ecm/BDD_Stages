@@ -3,36 +3,64 @@
 {% block titre_page %}BDD Stages - {{ stage.title }}{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="header bg-green">
-                    <h2>{{ stage.title }}</h2>
-                </div>
+    <div class="card">
+        <div class="header bg-green">
+            <h2>{{ stage.title }}</h2>
+        </div>
 
-                <div class="body">
-                    <div class="row">
-                        <div class="col-md-6"><p class="font-bold">Etudiant</p> {{ stage.author.firstName }} {{ stage.author.lastName }}</div>
-                        <div class="col-md-3"><p class="font-bold">Catégorie</p> {{ stage.category.name }}</div>
-                        <div class="col-md-3"><p class="font-bold">Durée</p> {{ stage.duration }} mois</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6"><p class="font-bold">Entreprise</p> {{ stage.company }}</div>
-                        <div class="col-md-3"><p class="font-bold">Pays</p> {{ stage.country }}</div>
-                        <div class="col-md-3"><p class="font-bold">Ville / Code Postal</p> {{ stage.city }} {{ stage.postalCode }}</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6"><p class="font-bold">Contact</p> {{ stage.contact }}</div>
-                        <div class="col-md-3"><p class="font-bold">Début</p> {{ stage.startedOn | date('d/m/Y') }}</div>
-                        <div class="col-md-3"><p class="font-bold">Fin</p> {{ stage.finishedOn | date('d/m/Y') }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12"><p class="font-bold">Description</p> {{ stage.description }}</div>
-                    </div>
-                </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-6"><p class="font-bold">Etudiant</p> {{ stage.author.firstName }} {{ stage.author.lastName }}</div>
+                <div class="col-md-3"><p class="font-bold">Catégorie</p> {{ stage.category.name }}</div>
+                <div class="col-md-3"><p class="font-bold">Durée</p> {{ stage.duration }} mois</div>
             </div>
+
+            <div class="row">
+                <div class="col-md-6"><p class="font-bold">Entreprise</p> {{ stage.company }}</div>
+                <div class="col-md-3"><p class="font-bold">Pays</p> {{ stage.country }}</div>
+                <div class="col-md-3"><p class="font-bold">Ville / Code Postal</p> {{ stage.city }} {{ stage.postalCode }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6"><p class="font-bold">Contact</p> {{ stage.contact }}</div>
+                <div class="col-md-3"><p class="font-bold">Début</p> {{ stage.startedOn | date('d/m/Y') }}</div>
+                <div class="col-md-3"><p class="font-bold">Fin</p> {{ stage.finishedOn | date('d/m/Y') }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-12"><p class="font-bold">Description</p> {{ stage.description }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="of_card">
+        <div class="header bg-green">
+            <h2>Stages Similaires</h2>
+        </div>
+
+        <div class="body">
+            <div class="row">
+                {% for s in stages %}
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="header bg-green">
+                                <h2>
+                                    <a href="/stage/{{ s.id }}">{{ s.title }}</a>
+                                    <small>{{ s.category }} / {{ s.duration }} mois</small>
+                                    <small>{{ s.company }}</small>
+                                    <small>{{ s.city }} {{ s.postalCode }}, {{ s.country }}</small>
+                                </h2>
+                            </div>
+
+                            <div class="body">
+                                {{ s.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(stages) }}
         </div>
     </div>
 {% endblock %}
