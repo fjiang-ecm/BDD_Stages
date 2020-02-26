@@ -12,30 +12,38 @@
 
                 <div class="body">
                     <div class="table-responsive">
-                        <table class="table table-stripped">
+                        <table class="table table-stripped" id="sortable">
                             <thead>
                                 <tr>
-                                    <th>Stage</th>
-                                    <th>Catégorie</th>
-                                    <th>Entreprise</th>
-                                    <th>Ville</th>
-                                    <th>Pays</th>
-                                    <th>Début</th>
+                                    <th>{{ knp_pagination_sortable(stages, 'Stage', 'title') }}</th>
+                                    <th{% if stages.isSorted('category') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(stages, 'Catégorie', 'category') }}
+                                    </th>
+                                    <th{% if stages.isSorted('company') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(stages, 'Entreprise / Laboaratoire', 'company') }}
+                                    </th>
+                                    <th{% if stages.isSorted('country') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(stages, 'Pays', 'country') }}
+                                    </th>
+                                    <th{% if stages.isSorted('city') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(stages, 'Ville', 'city') }}
+                                    </th>
+                                    <th{% if stages.isSorted('startedOn') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(stages, 'Début', 'startedOn') }}
+                                    </th>
                                     <th>Fin</th>
-                                    <th>Lien</th>
                                 </tr>
                             </thead>
 
                             {% for stage in stages %}
                                 <tr>
-                                    <td>{{ stage.title }}</td>
+                                    <td><a href="/stage/{{ stage.id }}">{{ stage.title }}</a></td>
                                     <td>{{ stage.category.name }}</td>
                                     <td>{{ stage.company }}</td>
-                                    <td>{{ stage.city }}</td>
                                     <td>{{ stage.country }}</td>
+                                    <td>{{ stage.city }}</td>
                                     <td>{{ stage.startedOn | date('d/m/Y') }}</td>
                                     <td>{{ stage.finishedOn | date('d/m/Y') }}</td>
-                                    <td><a href="/stage/{{ stage.id }}"><i class="material-icons">assignment</i></a></td>
                                 </tr>
                             {% endfor %}
                         </table>
