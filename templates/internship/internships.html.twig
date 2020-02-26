@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block titre_page %}BDD Stages - Mes Stages{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header bg-green">
+                    <h2>Mes Stages</h2>
+                </div>
+
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-stripped" id="sortable">
+                            <thead>
+                                <tr>
+                                    <th>Stage</th>
+                                    <th>Catégorie</th>
+                                    <th>Entreprise / Laboaratoire</th>
+                                    <th>Pays</th>
+                                    <th>Ville</th>
+                                    <th>Début</th>
+                                    <th>Fin</th>
+                                </tr>
+                            </thead>
+
+                            {% for stage in stages %}
+                                <tr>
+                                    <td><a href="/stage/{{ stage.id }}">{{ stage.title }}</a></td>
+                                    <td>{{ stage.category.name }}</td>
+                                    <td>{{ stage.company }}</td>
+                                    <td>{{ stage.country }}</td>
+                                    <td>{{ stage.city }}</td>
+                                    <td>{{ stage.startedOn | date('d/m/Y') }}</td>
+                                    <td>{{ stage.finishedOn | date('d/m/Y') }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

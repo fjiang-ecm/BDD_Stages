@@ -40,6 +40,22 @@ class InternshipController extends AbstractController
     }
 
     /**
+     * @Route("/mes_stages", name="internships_my")
+     */
+    public function internships()
+    {
+        if(!$this->security->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('home');
+        }
+
+        $user = $this->getUser();
+        $stages = $this->getDoctrine()->getRepository(Internship::class)->findBy(['author' => $user]);
+
+        return $this->render('internship/internships.html.twig', ['stages' => $stages]);
+    }
+
+    /**
      * @Route("/stage/{id}", name="internship")
      */
     public function stage($id)
@@ -78,7 +94,7 @@ class InternshipController extends AbstractController
             $entityManager->persist($internship);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('internships_my');
         }
 
         return $this->render('internship/new.html.twig', [
