@@ -15,32 +15,37 @@
                     {{ form_start(form) }}
                     <div class="form-group">
                         {{ form_row(form.title, {'label': 'Titre', 'attr': {'class': 'form-control'}}) }}
-                        {{ form_row(form.category, {'label': 'Catégorie', 'attr': {'class': 'form-control'}}) }}
                         <div class="row">
-                            <div class="col-md-6">{{ form_widget(form.company, {'label': 'Entreprise / Laboratoire', 'attr': {'class': 'form-control'}}) }}</div>
-                            <div class="col-md-6">{{ form_widget(form.contact, {'label': 'Contact', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-12">
+                                <div class="grey">Catégorie</div>
+                                {{ form_row(form.category, {'label': 'Catégorie', 'attr': {'class': 'form-control'}}) }}
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">{{ form_widget(form.country, {'label': 'Pays', 'attr': {'class': 'form-control'}}) }}</div>
-                            <div class="col-md-4">{{ form_widget(form.city, {'label': 'Ville', 'attr': {'class': 'form-control'}}) }}</div>
-                            <div class="col-md-4">{{ form_widget(form.postalCode, {'label': 'Code Postal', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-6">{{ form_row(form.company, {'label': 'Entreprise / Laboratoire', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-6">{{ form_row(form.contact, {'label': 'Contact', 'attr': {'class': 'form-control'}}) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{{ form_row(form.country, {'label': 'Pays', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-4">{{ form_row(form.city, {'label': 'Ville', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-4">{{ form_row(form.postalCode, {'label': 'Code Postal', 'attr': {'class': 'form-control'}}) }}</div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                Début
-                                {{ form_widget(form.startedOn, {'label': 'Début', 'attr': {'class': 'form-control'}}) }}</div>
+                                <div class="grey">Début du stage</div>
+                                {{ form_row(form.startedOn, {'label': 'Début', 'attr': {'class': 'form-control'}}) }}</div>
                             <div class="col-md-4">
-                                Fin
-                                {{ form_widget(form.finishedOn, {'label': 'Fin', 'attr': {'class': 'form-control'}}) }}</div>
+                                <div class="grey">Fin du stage</div>
+                                {{ form_row(form.finishedOn, {'label': 'Fin', 'attr': {'class': 'form-control'}}) }}</div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                Description
-                                {{ form_widget(form.description, {'placeholder': 'Description du Stage', 'attr': {'class': 'form-control'}}) }}
+                                <div class="grey">Description</div>
+                                {{ form_row(form.description, {'placeholder': 'Description du Stage', 'attr': {'class': 'form-control'}}) }}
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Soumettre le Stage</button>
+                    <button type="submit" class="btn btn-success">Soumettre</button>
                     {{ form_end(form) }}
                 </div>
             </div>

@@ -5,19 +5,17 @@ body{
 
 .login-page{
     background-color: lightgray;
-    margin: auto;
-    max-width: none;
-}
-
-.card_log{
-    margin: auto;
-    width: 400px;
-    text-align: center;
 }
 
 .card{
     margin: auto;
     width: 95%;
+}
+
+#log{
+    margin: auto;
+    width: 400px;
+    text-align: center;
 }
 
 .material-icons{
@@ -41,4 +39,8 @@ body{
 
 .form-group{
     text-align: left;
+}
+
+.grey{
+    color: #aaa;
 }
