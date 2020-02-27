@@ -3,55 +3,51 @@
 {% block titre_page %}BDD Stages - Stages{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="header bg-green">
-                    <h2>Liste des Stages</h2>
-                </div>
+    <div class="card">
+        <div class="header bg-green">
+            <h2>Liste des Stages</h2>
+        </div>
 
-                <div class="body">
-                    <div class="table-responsive">
-                        <table class="table table-stripped" id="sortable">
-                            <thead>
-                                <tr>
-                                    <th{% if stages.isSorted('category') %} class="sorted"{% endif %}>
-                                        {{ knp_pagination_sortable(stages, 'Catégorie', 'category') }}
-                                    </th>
-                                    <th{% if stages.isSorted('title') %} class="sorted"{% endif %}>
-                                        {{ knp_pagination_sortable(stages, 'Stage', 'title') }}
-                                    </th>
-                                    <th{% if stages.isSorted('company') %} class="sorted"{% endif %}>
-                                        {{ knp_pagination_sortable(stages, 'Entreprise / Laboaratoire', 'company') }}
-                                    </th>
-                                    <th{% if stages.isSorted('city') %} class="sorted"{% endif %}>
-                                        {{ knp_pagination_sortable(stages, 'Ville', 'city') }}
-                                    </th>
-                                    <th{% if stages.isSorted('country') %} class="sorted"{% endif %}>
-                                        {{ knp_pagination_sortable(stages, 'Pays', 'country') }}
-                                    </th>
-                                    <th{% if stages.isSorted('duration') %} class="sorted"{% endif %}>
-                                        {{ knp_pagination_sortable(stages, 'Durée', 'duration') }}
-                                    </th>
-                                </tr>
-                            </thead>
+        <div class="body">
+            <div class="table-responsive">
+                <table class="table table-stripped" id="sortable">
+                    <thead>
+                        <tr>
+                            <th{% if stages.isSorted('category') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(stages, 'Catégorie', 'category') }}
+                            </th>
+                            <th{% if stages.isSorted('title') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(stages, 'Stage', 'title') }}
+                            </th>
+                            <th{% if stages.isSorted('company') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(stages, 'Entreprise / Laboaratoire', 'company') }}
+                            </th>
+                            <th{% if stages.isSorted('city') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(stages, 'Ville', 'city') }}
+                            </th>
+                            <th{% if stages.isSorted('country') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(stages, 'Pays', 'country') }}
+                            </th>
+                            <th{% if stages.isSorted('duration') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(stages, 'Durée', 'duration') }}
+                            </th>
+                        </tr>
+                    </thead>
 
-                            {% for stage in stages %}
-                                <tr>
-                                    <td>{{ stage.category.name }}</td>
-                                    <td><a href="/stage/{{ stage.id }}">{{ stage.title }}</a></td>
-                                    <td>{{ stage.company }}</td>
-                                    <td>{{ stage.city }}</td>
-                                    <td>{{ stage.country }}</td>
-                                    <td>{{ stage.duration }} mois</td>
-                                </tr>
-                            {% endfor %}
-                        </table>
+                    {% for stage in stages %}
+                        <tr>
+                            <td>{{ stage.category.name }}</td>
+                            <td><a href="/stage/{{ stage.id }}">{{ stage.title }}</a></td>
+                            <td>{{ stage.company }}</td>
+                            <td>{{ stage.city }}</td>
+                            <td>{{ stage.country }}</td>
+                            <td>{{ stage.duration }} mois</td>
+                        </tr>
+                    {% endfor %}
+                </table>
 
-                        <div class="navigation">
-                            {{ knp_pagination_render(stages) }}
-                        </div>
-                    </div>
+                <div class="navigation">
+                    {{ knp_pagination_render(stages) }}
                 </div>
             </div>
         </div>
