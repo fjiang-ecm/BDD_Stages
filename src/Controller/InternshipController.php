@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Internship;
 use App\Entity\SearchInternship;
 use App\Form\InternshipType;
-
 use App\Form\SearchInternshipType;
+
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

@@ -2,59 +2,42 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity(repositoryClass="App\Repository\SearchInternshipRepository")
- */
 class SearchInternship
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @var category|null
      */
     private $category;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $country;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $company;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @var int|null
      */
     private $duration;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getCategory(): ?Category
     {
