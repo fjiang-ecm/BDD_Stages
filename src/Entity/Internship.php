@@ -218,7 +218,7 @@ class Internship
 
     public function setDuration() : self
     {
-        $deltaT = date_diff($this->finishedOn, $this->startedOn);
+        $deltaT = date_diff($this->finishedOn->modify('+14 days'), $this->startedOn); // Arrondi au mois le plus proche
         $this->duration = $deltaT->m;
 
         return $this;

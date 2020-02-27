@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Internship;
+use App\Entity\SearchInternship;
 use App\Form\InternshipType;
 
+use App\Form\SearchInternshipType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,13 +32,61 @@ class InternshipController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
+        $search = new SearchInternship();
+        $form = $this->createForm(SearchInternshipType::class, $search);
+        $form->handleRequest($request);
+
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from('App:Internship', 'i');
+
+        if($search->getCategory())
+        {
+            $qb = $qb->andWhere('i.category = :category')
+                ->setParameter('category', $search->getCategory());
+        }
+
+        if($search->getTitle())
+        {
+            $qb = $qb->andWhere('i.title LIKE :title')
+                ->setParameter('title', $search->getTitle());
+        }
+
+        if($search->getCompany())
+        {
+            $qb = $qb->andWhere('i.company LIKE :company')
+                ->setParameter('company', $search->getCompany());
+        }
+
+        if($search->getCountry())
+        {
+            $qb = $qb->andWhere('i.country LIKE :country')
+                ->setParameter('country', $search->getCountry());
+        }
+
+        if($search->getCity())
+        {
+            $qb = $qb->andWhere('i.city LIKE :city')
+                ->setParameter('city', $search->getCity());
+        }
+
+        if($search->getDuration())
+        {
+            $qb = $qb->andWhere('i.duration LIKE :duration')
+                ->setParameter('duration', $search->getDuration());
+        }
+
+        $query = $qb->getQuery()->getResult();
+
         $stages = $paginator->paginate(
-            $this->getDoctrine()->getRepository(Internship::class)->findAll(), /* query NOT result */
+            $query, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
 
-        return $this->render('internship/index.html.twig', ['stages' => $stages]);
+        return $this->render('internship/index.html.twig', [
+            'stages' => $stages,
+            'form' => $form->createView()]);
     }
 
     /**
@@ -68,7 +118,6 @@ class InternshipController extends AbstractController
         $stage = $this->getDoctrine()->getRepository(Internship::class)->find($id);
 
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
-
         $qb->select('i')
             ->from('App:Internship', 'i')
             ->where('i.id != :id AND i.category = :category AND i.duration = :duration')
@@ -102,9 +151,7 @@ class InternshipController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $internship = new Internship();
-
         $form = $this->createForm(InternshipType::class, $internship);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())

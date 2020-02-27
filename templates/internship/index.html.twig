@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
 
 {% block titre_page %}BDD Stages - Stages{% endblock %}
 
@@ -9,6 +10,21 @@
         </div>
 
         <div class="body">
+            {{ form_start(form) }}
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">{{ form_row(form.category, {'label': 'Catégorie', 'attr': {'placeholder': 'Catégorie', 'class': 'form-control'}}) }}</div>
+                        <div class="col-md-4">{{ form_row(form.title, {'label': 'Titre', 'attr': {'class': 'form-control'}}) }}</div>
+                        <div class="col-md-4">{{ form_row(form.company, {'label': 'Entreprise / Laboratoire', 'attr': {'class': 'form-control'}}) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">{{ form_row(form.country, {'label': 'Pays', 'attr': {'class': 'form-control'}}) }}</div>
+                        <div class="col-md-4">{{ form_row(form.city, {'label': 'Ville', 'attr': {'class': 'form-control'}}) }}</div>
+                        <div class="col-md-2">{{ form_row(form.duration, {'label': 'Durée', 'attr': {'class': 'form-control'}}) }}</div>
+                        <div class="col-md-2"><button type="submit" class="btn btn-success">Rechercher</button></div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
             <div class="table-responsive">
                 <table class="table table-stripped" id="sortable">
                     <thead>
