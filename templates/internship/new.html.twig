@@ -17,7 +17,7 @@
                         {{ form_row(form.title, {'label': 'Titre', 'attr': {'class': 'form-control'}}) }}
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="grey">Catégorie</div>
+                                <div class="grey">Catégorie *</div>
                                 {{ form_row(form.category, {'label': 'Catégorie', 'attr': {'class': 'form-control'}}) }}
                             </div>
                         </div>
@@ -31,17 +31,13 @@
                             <div class="col-md-4">{{ form_row(form.postalCode, {'label': 'Code Postal', 'attr': {'class': 'form-control'}}) }}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="grey">Début du stage</div>
-                                {{ form_row(form.startedOn, {'label': 'Début', 'attr': {'class': 'form-control'}}) }}</div>
-                            <div class="col-md-4">
-                                <div class="grey">Fin du stage</div>
-                                {{ form_row(form.finishedOn, {'label': 'Fin', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-4">{{ form_widget(form.startedOn) }}</div>
+                            <div class="col-md-4">{{ form_row(form.finishedOn) }}</div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="grey">Description</div>
-                                {{ form_row(form.description, {'placeholder': 'Description du Stage', 'attr': {'class': 'form-control'}}) }}
+                                <div class="grey">Description *</div>
+                                {{ form_row(form.description) }}
                             </div>
                         </div>
                     </div>

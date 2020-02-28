@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Internship;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,8 +20,16 @@ class InternshipType extends AbstractType
             ->add('country')
             ->add('company')
             ->add('contact')
-            ->add('startedOn')
-            ->add('finishedOn')
+            ->add('startedOn', DateType::class,[
+                "format"=>"dd/MM/yyyy",
+                'widget' => 'single_text',
+                'label' => 'Date de début'
+            ])
+            ->add('finishedOn',DateType::class, [
+                "format"=>"dd/MM/yyyy",
+                'widget' => 'single_text',
+                'label' => 'Date de fin'
+            ])
             ->add('category' )
         ;
     }
