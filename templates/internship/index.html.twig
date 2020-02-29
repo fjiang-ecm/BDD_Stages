@@ -53,7 +53,10 @@
                     {% for stage in stages %}
                         <tr>
                             <td>{{ stage.category.name }}</td>
-                            <td><a href="/stage/{{ stage.id }}">{{ stage.title }}</a></td>
+                            <td>
+                                <a href="/stage/{{ stage.id }}">{{ stage.title }}</a>
+                                <a href="/edit/{{ stage.id }}"><i class="material-icons" style="font-size: 14px">edit</i></a>
+                            </td>
                             <td>{{ stage.company }}</td>
                             <td>{{ stage.city }}</td>
                             <td>{{ stage.country }}</td>

@@ -123,7 +123,7 @@ class InternshipController extends AbstractController
      * @Route("/new", name="internship_new")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function registration(Request $request)
+    public function new(Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -134,7 +134,7 @@ class InternshipController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $internship->setAuthor($this->getUser())
-                        ->setDuration();
+                ->setDuration();
 
             $entityManager->persist($internship);
             $entityManager->flush();
@@ -145,6 +145,33 @@ class InternshipController extends AbstractController
 
         return $this->render('internship/new.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="internship_edit")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function edit($id, Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $internship = $this->getDoctrine()->getRepository(Internship::class)->find($id);
+        $form = $this->createForm(InternshipType::class, $internship);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager->persist($internship);
+            $entityManager->flush();
+
+            $this->addFlash('success','Votre stage a bien été ajouté');
+            return $this->redirectToRoute('internships_my');
+        }
+
+        return $this->render('internship/new.html.twig', [
+            'form' => $form->createView(),
+            'stage' => $internship
         ]);
     }
 }

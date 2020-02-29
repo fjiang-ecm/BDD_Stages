@@ -5,7 +5,7 @@
 {% block content %}
     <div class="card">
         <div class="header bg-green">
-            <h2>{{ stage.title }}</h2>
+            <h2>{{ stage.title }} <a href="/edit/{{ stage.id }}"><i class="material-icons" style="font-size: 16px">edit</i></a></h2>
         </div>
 
         <div class="body">
@@ -44,7 +44,7 @@
                         <div class="card">
                             <div class="header bg-green">
                                 <h2>
-                                    <a href="/stage/{{ s.id }}">{{ s.title }}</a>
+                                    <a href="/stage/{{ s.id }}">{{ s.title }}</a> <a href="/edit/{{ s.id }}"><i class="material-icons" style="font-size: 14px">edit</i></a>
                                     <small>{{ s.category }} / {{ s.duration }} mois<br>
                                         {{ s.company }}<br>
                                         {{ s.city }} {{ s.postalCode }}, {{ s.country }}</small>

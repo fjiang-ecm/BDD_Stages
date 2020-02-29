@@ -8,13 +8,13 @@
             <h2>Mes Stages</h2>
         </div>
 
-        <div class="body">
+        <div class="body" id="grid">
             {% for s in stages %}
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="header bg-green">
                             <h2>
-                                <a href="/stage/{{ s.id }}">{{ s.title }}</a>
+                                <a href="/stage/{{ s.id }}">{{ s.title }}</a> <a href="/edit/{{ s.id }}"><i class="material-icons" style="font-size: 18px">edit</i></a>
                                 <small>{{ s.category }} / {{ s.duration }} mois<br>
                                     {{ s.company }}<br>
                                     {{ s.city }} {{ s.postalCode }}, {{ s.country }}</small>
