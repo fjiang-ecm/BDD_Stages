@@ -75,9 +75,15 @@
                             </a>
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
+                            <li class="header" style="background: #4CAF50; color: white">Admin</li>
                             <li>
                                 <a href="{{ path('admin') }}" class=" waves-effect waves-block">
                                     <i class="material-icons">vpn_key</i> <span>Administration</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('user') }}" class=" waves-effect waves-block">
+                                    <i class="material-icons">person</i> <span>Utilisateurs</span>
                                 </a>
                             </li>
                         {% endif %}

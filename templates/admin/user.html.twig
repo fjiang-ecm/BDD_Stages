@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block titre_page %}BDD Stages - Utilisateurs{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="header bg-green">
+            <h2>Utilisateurs</h2>
+        </div>
+
+        <div class="body">
+            {{ form_start(form) }}
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">{{ form_row(form.userName, {'label': 'Identifiant'}) }}</div>
+                    <div class="col-md-4">{{ form_row(form.firstName, {'label': 'Prénom', 'attr': {'class': 'form-control'}}) }}</div>
+                    <div class="col-md-4">{{ form_row(form.lastName, {'label': 'Nom de famille', 'attr': {'class': 'form-control'}}) }}</div>
+                </div>
+
+                <button type="submit" class="btn btn-success">Rechercher</button>
+            </div>
+            {{ form_end(form) }}
+
+            <div class="table-responsive">
+                <table class="table table-stripped" id="sortable">
+                    <thead>
+                        <tr>
+                            <th{% if users.isSorted('userName') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(users, 'Identifiant', 'userName') }}
+                            </th>
+                            <th{% if users.isSorted('firstName') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(users, 'Prénom', 'firstName') }}
+                            </th>
+                            <th{% if users.isSorted('lastName') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(users, 'Nom de famille', 'lastName') }}
+                            </th>
+                            <th>Rôle</th>
+                        </tr>
+                    </thead>
+
+                    {% for u in users %}
+                        <tr>
+                            <td>{{ u.userName }}</td>
+                            <td>{{ u.firstName }}</td>
+                            <td>{{ u.lastName }}</td>
+                            <td>
+                                {% if 'ROLE_ADMIN' in u.roles %}
+                                    <a href="{{ path('destitute', {'id': u.id}) }}"><i class="material-icons">lock</i></a>
+                                {% else %}
+                                    <a href="{{ path('promote', {'id': u.id}) }}"><i class="material-icons">verified_user</i></a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                <div class="navigation">
+                    {{ knp_pagination_render(users) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
