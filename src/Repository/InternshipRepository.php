@@ -19,32 +19,37 @@ class InternshipRepository extends ServiceEntityRepository
         parent::__construct($registry, Internship::class);
     }
 
-    // /**
-    //  * @return Internship[] Returns an array of Internship objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getNbInternships()
     {
         return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('COUNT(i.id) as nb')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getSingleScalarResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Internship
+    public function getNbCountry()
     {
         return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('COUNT(DISTINCT i.country) as nb')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getSingleScalarResult();
     }
-    */
+
+    public function getNbCity()
+    {
+        return $this->createQueryBuilder('i')
+            ->select('COUNT(DISTINCT i.city) as nb')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findInternshipByDate($nbEntry)
+    {
+        return $this->createQueryBuilder('i')
+            ->select('i')
+            ->orderBy('i.addedOn', 'DESC')
+            ->setMaxResults($nbEntry)
+            ->getQuery()
+            ->getResult();
+    }
 }

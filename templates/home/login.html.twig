@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block additionnal_body_class %}ls-closed login-page{% endblock %}
+
+{% block titre_page %}BDD Stages{% endblock %}
+
+{% block content %}
+        <div class="card" id="log">
+            <img src="https://wiki.centrale-marseille.fr/ginfo/_detail/logobest.png?id=index" height="100px" width="auto">
+
+            <div class="body">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <form id="sign-in" action="{{ path('home') }}" method="post">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input class="form-control" type="text" placeholder="Identifiant" required name="_username"/>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input class="form-control" type="password" placeholder="Mot de passe" required name="_password"/>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button id="_submit" name="_submit" class="btn btn-block bg-monVert waves-effect" type="submit">Connexion</button>
+                    </div>
+                </form><br>
+
+                <div>
+                    <a href="{{ path('user_login') }}" class="btn btn-block bg-blue-grey">Connexion via MyCA</a>
+                </div><br>
+
+                <div>
+                    <a href="{{ path('security_registration') }}" class="btn btn-block bg-red">Inscription</a>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

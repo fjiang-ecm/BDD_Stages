@@ -1,50 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block additionnal_body_class %}ls-closed login-page{% endblock %}
-
 {% block titre_page %}BDD Stages - Acceuil{% endblock %}
 
 {% block content %}
-        <div class="card" id="log">
-            <img src="https://wiki.centrale-marseille.fr/ginfo/_detail/logobest.png?id=index" height="100px" width="auto">
-
-            <div class="body">
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
-
-                <form id="sign-in" action="{{ path('home') }}" method="post">
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                        <div class="form-line">
-                            <input class="form-control" type="text" placeholder="Identifiant" required name="_username"/>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input class="form-control" type="password" placeholder="Mot de passe" required name="_password"/>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button id="_submit" name="_submit" class="btn btn-block bg-monVert waves-effect" type="submit">Connexion</button>
-                    </div>
-                </form><br>
-
-                <div>
-                    <a href="{{ path('user_login') }}" class="btn btn-block bg-blue-grey">Connexion via MyCA</a>
-                </div><br>
-
-                <div>
-                    <a href="{{ path('security_registration') }}" class="btn btn-block bg-red">Inscription</a>
-                </div>
+    <div class="col-md-4">
+        <div class="info-box bg-teal hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">file_copy</i>
+            </div>
+            <div class="content">
+                <div class="text">Stages Ajoutés</div>
+                <div class="number">{{ nb_internships }}</div>
             </div>
         </div>
 
+        <div class="info-box bg-green hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">public</i>
+            </div>
+            <div class="content">
+                <div class="text">Pays</div>
+                <div class="number">{{ nb_countries }}</div>
+            </div>
+        </div>
+
+        <div class="info-box bg-light-green hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">location_city</i>
+            </div>
+            <div class="content">
+                <div class="text">Villes</div>
+                <div class="number">{{ nb_cities }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="header bg-green">
+                <h2>Derniers Stages</h2>
+            </div>
+
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-stripped">
+                        <thead>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Stage</th>
+                            <th>Entreprise / Laboratoire</th>
+                            <th>Ville</th>
+                        </tr>
+                        </thead>
+
+                        {% for stage in stages %}
+                            <tr>
+                                <td>{{ stage.category.name }}</td>
+                                <td>
+                                    <a href="/stage/{{ stage.id }}">{{ stage.title }}</a>
+                                    {% if is_granted('edit', stage) %}
+                                        <a href="/edit/{{ stage.id }}"><i class="material-icons" style="font-size: 14px">edit</i></a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ stage.company }}</td>
+                                <td>{{ stage.city }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

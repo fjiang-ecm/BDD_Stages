@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
-{% block titre_page %}BDD Stages - Nouveau Stage{% endblock %}
+{% block titre_page %}BDD Stages - {{ stage.title }}{% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="header bg-green">
-                    <h2>Nouveau Stage</h2>
+                    <h2>{{ stage.title }}</h2>
                 </div>
 
                 <div class="body">

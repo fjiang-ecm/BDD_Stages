@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Internship;
 use App\Entity\User;
 use App\Form\RegistrationType;
 
@@ -24,21 +25,25 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home", methods={"GET", "POST"})
      */
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function home(AuthenticationUtils $authenticationUtils)
     {
-        if($this->security->isGranted('ROLE_USER'))
-        {
-            return $this->redirectToRoute('internships');
+        if(!$this->security->isGranted('ROLE_USER')) {
+            $error = $authenticationUtils->getLastAuthenticationError();
+
+            $lastUsername = $authenticationUtils->getLastUsername();
+            return $this->render('home/login.html.twig', [
+                'last_username' => $lastUsername,
+                'error' => $error,
+            ]);
         }
 
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+        $repo = $this->getDoctrine()->getRepository(Internship::class);
 
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('home/index.html.twig', [
-            'last_username' => $lastUsername,
-            'error'         => $error,
+            'nb_internships' => $repo->getNbInternships(),
+            'nb_countries' => $repo->getNbCountry(),
+            'nb_cities' => $repo->getNbCity(),
+            'stages' => $repo->findInternshipByDate(10)
         ]);
     }
 

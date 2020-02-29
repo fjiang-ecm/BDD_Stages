@@ -79,6 +79,11 @@ class Internship
      */
     private $duration;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $addedOn;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -227,5 +232,17 @@ class Internship
     public function getDuration(): ?int
     {
         return $this->duration;
+    }
+
+    public function getAddedOn(): ?\DateTimeInterface
+    {
+        return $this->addedOn;
+    }
+
+    public function setAddedOn(\DateTimeInterface $addedOn): self
+    {
+        $this->addedOn = $addedOn;
+
+        return $this;
     }
 }

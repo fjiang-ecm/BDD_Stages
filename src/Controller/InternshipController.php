@@ -134,7 +134,8 @@ class InternshipController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $internship->setAuthor($this->getUser())
-                ->setDuration();
+                ->setDuration()
+                ->setAddedOn(new \DateTime());
 
             $entityManager->persist($internship);
             $entityManager->flush();
@@ -172,11 +173,11 @@ class InternshipController extends AbstractController
             $entityManager->persist($internship);
             $entityManager->flush();
 
-            $this->addFlash('success','Votre stage a bien été ajouté');
+            $this->addFlash('success','Votre stage a bien été modifié');
             return $this->redirectToRoute('internships_my');
         }
 
-        return $this->render('internship/new.html.twig', [
+        return $this->render('internship/edit.html.twig', [
             'form' => $form->createView(),
             'stage' => $internship
         ]);
