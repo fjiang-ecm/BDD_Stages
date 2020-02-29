@@ -157,6 +157,13 @@ class InternshipController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $internship = $this->getDoctrine()->getRepository(Internship::class)->find($id);
+
+        if(!$this->isGranted('edit', $internship))
+        {
+            $this->addFlash('danger','Vous ne pouvez pas modifier ce stage');
+            return $this->redirectToRoute('internships');
+        }
+
         $form = $this->createForm(InternshipType::class, $internship);
         $form->handleRequest($request);
 

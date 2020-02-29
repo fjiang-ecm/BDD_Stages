@@ -14,7 +14,10 @@
                     <div class="card">
                         <div class="header bg-green">
                             <h2>
-                                <a href="/stage/{{ s.id }}">{{ s.title }}</a> <a href="/edit/{{ s.id }}"><i class="material-icons" style="font-size: 18px">edit</i></a>
+                                <a href="/stage/{{ s.id }}">{{ s.title }}</a>
+                                {% if is_granted('edit', s) %}
+                                    <a href="/edit/{{ s.id }}"><i class="material-icons" style="font-size: 18px">edit</i></a>
+                                {% endif %}
                                 <small>{{ s.category }} / {{ s.duration }} mois<br>
                                     {{ s.company }}<br>
                                     {{ s.city }} {{ s.postalCode }}, {{ s.country }}</small>
