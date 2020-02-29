@@ -63,7 +63,7 @@ class AppFixtures extends Fixture
             ->setLastName("F")
             ->setEmail("mcf@mcf.fr")
             ->setPassword($hash)
-            ->setRoles(['ROLE_USER']);
+            ->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($user);
         

@@ -65,15 +65,22 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ path('internships_my') }}" id="link_add" class=" waves-effect waves-block">
+                            <a href="{{ path('internships_my') }}" class=" waves-effect waves-block">
                                 <i class="material-icons">work</i> <span>Mes Stages</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ path('internship_new') }}" id="link_add" class=" waves-effect waves-block">
+                            <a href="{{ path('internship_new') }}" class=" waves-effect waves-block">
                                 <i class="material-icons">add</i> <span>Ajouter un Stage</span>
                             </a>
                         </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('admin') }}" class=" waves-effect waves-block">
+                                    <i class="material-icons">vpn_key</i> <span>Administration</span>
+                                </a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </aside>

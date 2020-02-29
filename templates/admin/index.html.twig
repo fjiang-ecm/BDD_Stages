@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block titre_page %}BDD Stages - Admin Interface{% endblock %}
+
+{% block content %}
+    <div class="of_card">
+        <div class="header bg-green">
+            <h2>Administration</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="info-box bg-teal hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">person</i>
+            </div>
+            <div class="content">
+                <div class="text">Utilisateurs inscrits</div>
+                <div class="number">{{ nb_users }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="info-box bg-green hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">folder</i>
+            </div>
+            <div class="content">
+                <div class="text">Catégories</div>
+                <div class="number">{{ nb_categories }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

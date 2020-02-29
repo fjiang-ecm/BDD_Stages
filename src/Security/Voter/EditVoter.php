@@ -7,10 +7,18 @@ use App\Entity\User;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 
 class EditVoter extends Voter
 {
     const EDIT = 'edit';
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
 
     protected function supports($attribute, $subject)
     {
@@ -36,6 +44,6 @@ class EditVoter extends Voter
             return false;
         }
 
-        return $user === $subject->getAuthor();
+        return $user === $subject->getAuthor() || $this->security->isGranted('ROLE_ADMIN');
     }
 }
