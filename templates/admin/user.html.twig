@@ -46,9 +46,14 @@
                             <td>{{ u.lastName }}</td>
                             <td>
                                 {% if 'ROLE_ADMIN' in u.roles %}
-                                    <a href="{{ path('destitute', {'id': u.id}) }}"><i class="material-icons">lock</i></a>
+                                    <a href="{{ path('modo', {'id': u.id}) }}"><i class="material-icons">supervisor_account</i></a>
+                                    <a href="{{ path('destitute', {'id': u.id}) }}"><i class="material-icons">person</i></a>
+                                {% elseif 'ROLE_MODO' in u.roles %}
+                                    <a href="{{ path('admin', {'id': u.id}) }}"><i class="material-icons">verified_user</i></a>
+                                    <a href="{{ path('destitute', {'id': u.id}) }}"><i class="material-icons">person</i></a>
                                 {% else %}
-                                    <a href="{{ path('promote', {'id': u.id}) }}"><i class="material-icons">verified_user</i></a>
+                                    <a href="{{ path('admin', {'id': u.id}) }}"><i class="material-icons">verified_user</i></a>
+                                    <a href="{{ path('modo', {'id': u.id}) }}"><i class="material-icons">supervisor_account</i></a>
                                 {% endif %}
                             </td>
                         </tr>

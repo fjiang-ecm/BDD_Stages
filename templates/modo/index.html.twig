@@ -41,15 +41,17 @@
                     <h2>Nouvelle Catégorie</h2>
                 </div>
 
-                <div class="body">
-                    {{ form_start(form) }}
-                            <div class="col-md-6">{{ form_row(form.name, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}</div>
-                            <div class="col-md-5">{{ form_row(form.parent, {'label': 'Parent', 'attr': {'class': 'form-control'}}) }}</div>
-                            <div class="col-md-1"><button type="submit" class="btn btn-success">Créer</button></div>
+                {% if is_granted('ROLE_MODO') %}
+                    <div class="body">
+                        {{ form_start(form) }}
+                                <div class="col-md-6">{{ form_row(form.name, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}</div>
+                                <div class="col-md-5">{{ form_row(form.parent, {'label': 'Parent', 'attr': {'class': 'form-control'}}) }}</div>
+                                <div class="col-md-1"><button type="submit" class="btn btn-success">Créer</button></div>
 
+                        </div>
+                        {{ form_end(form) }}
                     </div>
-                    {{ form_end(form) }}
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>

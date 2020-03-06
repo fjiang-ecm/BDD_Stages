@@ -21,33 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin")
-     */
-    public function index(Request $request)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $entityManager->persist($category);
-            $entityManager->flush();
-
-            $this->addFlash('success','Votre catégorie a bien été créée');
-            return $this->redirectToRoute('admin');
-        }
-
-        return $this->render('admin/index.html.twig', [
-            'form' => $form->createView(),
-            'nb_users' => $this->getDoctrine()->getRepository(User::class)->getNbUser(),
-            'nb_categories' => $this->getDoctrine()->getRepository(Category::class)->getNbCategory()
-        ]);
-    }
-
-    /**
      * @Route("/user", name="user")
      */
     public function user(PaginatorInterface $paginator, Request $request)
@@ -92,9 +65,9 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/promote/{id}", name="promote")
+     * @Route("/admin/{id}", name="admin")
      */
-    public function promote($id)
+    public function admin($id)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -105,6 +78,23 @@ class AdminController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('success', "L 'utilisateur {$user->getUserName()} a bien été promu admin");
+        return $this->redirectToRoute('user');
+    }
+
+    /**
+     * @Route("/modo/{id}", name="modo")
+     */
+    public function modo($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $user->setRoles(['ROLE_MODO']);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $this->addFlash('success', "L 'utilisateur {$user->getUserName()} a bien été promu / destitué modérateur");
         return $this->redirectToRoute('user');
     }
 
