@@ -6,12 +6,27 @@
 {% block content %}
     <div class="of_card">
         <div class="header bg-green">
+        <div class="header bg-green">
             <h2>Administration</h2>
         </div>
     </div>
 
+    <a href="{{ path('mod_internships') }}">
+        <div class="col-md-4">
+            <div class="info-box bg-teal hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">file_copy</i>
+                </div>
+                <div class="content">
+                    <div class="text">Stages en attente de modération</div>
+                    <div class="number">{{ nb_internships }}</div>
+                </div>
+            </div>
+        </div>
+    </a>
+
     <div class="col-md-4">
-        <div class="info-box bg-teal hover-expand-effect">
+        <div class="info-box bg-green hover-expand-effect">
             <div class="icon">
                 <i class="material-icons">person</i>
             </div>
@@ -23,7 +38,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="info-box bg-green hover-expand-effect">
+        <div class="info-box bg-light-green hover-expand-effect">
             <div class="icon">
                 <i class="material-icons">folder</i>
             </div>

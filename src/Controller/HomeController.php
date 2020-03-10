@@ -40,7 +40,7 @@ class HomeController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Internship::class);
 
         return $this->render('home/index.html.twig', [
-            'nb_internships' => $repo->getNbInternships(),
+            'nb_internships' => $repo->getNbVisibleInternships(),
             'nb_countries' => $repo->getNbCountry(),
             'nb_cities' => $repo->getNbCity(),
             'stages' => $repo->findInternshipByDate(10)

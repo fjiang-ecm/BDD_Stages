@@ -28,10 +28,29 @@ class InternshipRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getNbInternships()
+    public function getInvisible()
+    {
+        return $this->createQueryBuilder('i')
+            ->select('i')
+            ->where('i.visible = 0')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getNbVisibleInternships()
     {
         return $this->createQueryBuilder('i')
             ->select('COUNT(i.id) as nb')
+            ->where('i.visible = 1')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getNbInvisibleInternships()
+    {
+        return $this->createQueryBuilder('i')
+            ->select('COUNT(i.id) as nb')
+            ->where('i.visible = 0')
             ->getQuery()
             ->getSingleScalarResult();
     }
