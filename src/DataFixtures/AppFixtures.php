@@ -84,16 +84,18 @@ class AppFixtures extends Fixture
             $internship->setTitle($faker->jobTitle)
                 ->setAuthor($user)
                 ->setDescription($faker->text)
-                ->setCategory($a1)
+                ->setCategory($a2)
                 ->setCity($faker->city)
                 ->setPostalCode($faker->postcode)
                 ->setCountry($faker->country)
                 ->setCompany($faker->company)
                 ->setContact($faker->name)
                 ->setStartedOn($faker->dateTimeThisDecade($max = 'now', $timezone = null))
-                ->setFinishedOn($faker->dateTimeBetween($startDate = $internship->getStartedOn(), $endDate = 'now', $timezone = null))
+                ->setAddedOn($faker->dateTimeBetween($startDate = $internship->getStartedOn(), $endDate = 'now', $timezone = null))
+                ->setFinishedOn($faker->dateTimeBetween($startDate = $internship->getAddedOn(), $endDate = 'now', $timezone = null))
                 ->setDuration()
-                ->setAddedOn(new \DateTime());
+                ->setVisible(True)
+                ->setPublishedOn($faker->dateTimeBetween($startDate = $internship->getAddedOn(), $endDate = 'now', $timezone = null));
 
             $manager->persist($internship);
 
@@ -110,7 +112,8 @@ class AppFixtures extends Fixture
                         ->setStartedOn($faker->dateTimeThisDecade($max = 'now', $timezone = null))
                         ->setAddedOn($faker->dateTimeBetween($startDate = $internship->getStartedOn(), $endDate = 'now', $timezone = null))
                         ->setFinishedOn($faker->dateTimeBetween($startDate = $internship->getAddedOn(), $endDate = 'now', $timezone = null))
-                        ->setDuration();
+                        ->setDuration()
+                        ->setVisible(False);
 
             $manager->persist($internship);
         }

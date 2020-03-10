@@ -19,6 +19,15 @@ class InternshipRepository extends ServiceEntityRepository
         parent::__construct($registry, Internship::class);
     }
 
+    public function getVisible()
+    {
+        return $this->createQueryBuilder('i')
+            ->select('i')
+            ->where('i.visible = 1')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getNbInternships()
     {
         return $this->createQueryBuilder('i')
@@ -47,7 +56,8 @@ class InternshipRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('i')
             ->select('i')
-            ->orderBy('i.addedOn', 'DESC')
+            ->where('i.visible = 1')
+            ->orderBy('i.publishedOn', 'DESC')
             ->setMaxResults($nbEntry)
             ->getQuery()
             ->getResult();

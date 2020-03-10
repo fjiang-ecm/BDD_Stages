@@ -15,6 +15,11 @@
                         <div class="header bg-green">
                             <h2>
                                 <a href="/stage/{{ s.id }}">{{ s.title }}</a>
+                                {% if s.visible %}
+                                    <i class="material-icons" style="font-size: 18px">visibility</i>
+                                {% else %}
+                                    <i class="material-icons" style="font-size: 18px">visibility_off</i>
+                                {% endif %}
                                 {% if is_granted('edit', s) %}
                                     <a href="/edit/{{ s.id }}"><i class="material-icons" style="font-size: 18px">edit</i></a>
                                 {% endif %}

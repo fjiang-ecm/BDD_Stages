@@ -84,6 +84,16 @@ class Internship
      */
     private $addedOn;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $visible;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $publishedOn;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -242,6 +252,30 @@ class Internship
     public function setAddedOn(\DateTimeInterface $addedOn): self
     {
         $this->addedOn = $addedOn;
+
+        return $this;
+    }
+
+    public function getVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): self
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function getPublishedOn(): ?\DateTimeInterface
+    {
+        return $this->publishedOn;
+    }
+
+    public function setPublishedOn(?\DateTimeInterface $publishedOn): self
+    {
+        $this->publishedOn = $publishedOn;
 
         return $this;
     }

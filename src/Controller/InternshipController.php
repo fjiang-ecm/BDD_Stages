@@ -27,7 +27,8 @@ class InternshipController extends AbstractController
 
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
         $qb->select('i')
-            ->from('App:Internship', 'i');
+            ->from('App:Internship', 'i')
+            ->andwhere('i.visible = 1');
 
         if($search->getCategory())
         {
@@ -98,10 +99,16 @@ class InternshipController extends AbstractController
     {
         $stage = $this->getDoctrine()->getRepository(Internship::class)->find($id);
 
+        if(!$this->isGranted('view', $stage))
+        {
+            $this->addFlash('danger','Vous ne pouvez pas voir ce stage');
+            return $this->redirectToRoute('internships');
+        }
+
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
         $qb->select('i')
             ->from('App:Internship', 'i')
-            ->where('i.id != :id AND i.category = :category AND i.duration = :duration')
+            ->where('i.id != :id AND i.visible = 1 AND i.category = :category AND i.duration = :duration')
             ->setParameter('id', $id)
             ->setParameter('category', $stage->getCategory())
             ->setParameter('duration', $stage->getDuration());
@@ -135,7 +142,8 @@ class InternshipController extends AbstractController
         {
             $internship->setAuthor($this->getUser())
                 ->setDuration()
-                ->setAddedOn(new \DateTime());
+                ->setAddedOn(new \DateTime())
+                ->setVisible(False);
 
             $entityManager->persist($internship);
             $entityManager->flush();
@@ -170,6 +178,8 @@ class InternshipController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            $internship->setVisible(False);
+
             $entityManager->persist($internship);
             $entityManager->flush();
 
