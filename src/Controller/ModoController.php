@@ -71,7 +71,8 @@ class ModoController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $internship = $this->getDoctrine()->getRepository(Internship::class)->find($id);
-        $internship->setVisible(True);
+        $internship->setVisible(True)
+            ->setPublishedOn(new \DateTime());
 
         $entityManager->persist($internship);
         $entityManager->flush();
