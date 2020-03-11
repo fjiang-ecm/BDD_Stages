@@ -66,7 +66,7 @@ class ModoController extends AbstractController
     /**
      * @Route("/validate/{id}", name="validate")
      */
-    public function validate($id)
+    public function validate($id, \Swift_Mailer $mailer)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -78,6 +78,23 @@ class ModoController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('success',"Le stage {$internship->getTitle()} a bien été validé");
+
+        $user = $internship->getAuthor();
+
+        $message = (new \Swift_Message("[BDD Stage] Validation de votre stage {$internship->getTitle()}"))
+            ->setFrom('no-reply@bdd-stage.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'modo/validation.html.twig', [
+                        'user' => $user,
+                        'internship' => $internship
+                    ]),
+                'text/html'
+            );
+
+        $mailer->send($message);
+
         return $this->redirectToRoute('mod_internships');
     }
 }
