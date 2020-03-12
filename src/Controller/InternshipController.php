@@ -93,17 +93,11 @@ class InternshipController extends AbstractController
 
     /**
      * @Route("/stage/{id}", name="internship")
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('view', stage)")
      */
-    public function stage($id, PaginatorInterface $paginator, Request $request)
+    public function stage(Internship $stage, PaginatorInterface $paginator, Request $request)
     {
-        $stage = $this->getDoctrine()->getRepository(Internship::class)->find($id);
-
-        if(!$this->isGranted('view', $stage))
-        {
-            $this->addFlash('danger','Vous ne pouvez pas voir ce stage');
-            return $this->redirectToRoute('internships');
-        }
+        $id = $stage->getId();
 
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
         $qb->select('i')
@@ -159,19 +153,11 @@ class InternshipController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="internship_edit")
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('edit', internship)")
      */
-    public function edit($id, Request $request)
+    public function edit(Internship $internship, Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
-
-        $internship = $this->getDoctrine()->getRepository(Internship::class)->find($id);
-
-        if(!$this->isGranted('edit', $internship))
-        {
-            $this->addFlash('danger','Vous ne pouvez pas modifier ce stage');
-            return $this->redirectToRoute('internships');
-        }
 
         $form = $this->createForm(InternshipType::class, $internship);
         $form->handleRequest($request);

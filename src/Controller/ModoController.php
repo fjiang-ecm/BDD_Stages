@@ -65,11 +65,10 @@ class ModoController extends AbstractController
     /**
      * @Route("/validate/{id}", name="validate")
      */
-    public function validate($id, \Swift_Mailer $mailer)
+    public function validate(Internship $internship, \Swift_Mailer $mailer)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $internship = $this->getDoctrine()->getRepository(Internship::class)->find($id);
         $internship->setVisible(True)
             ->setPublishedOn(new \DateTime());
 

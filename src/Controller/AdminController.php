@@ -67,11 +67,10 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/{id}", name="admin")
      */
-    public function admin($id)
+    public function admin(User $user)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         $user->setRoles(['ROLE_ADMIN']);
 
         $entityManager->persist($user);
@@ -84,11 +83,10 @@ class AdminController extends AbstractController
     /**
      * @Route("/modo/{id}", name="modo")
      */
-    public function modo($id)
+    public function modo(User $user)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         $user->setRoles(['ROLE_MODO']);
 
         $entityManager->persist($user);
@@ -101,11 +99,10 @@ class AdminController extends AbstractController
     /**
      * @Route("/destitute/{id}", name="destitute")
      */
-    public function destitute($id)
+    public function destitute(User $user)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         $user->setRoles(['ROLE_USER']);
 
         $entityManager->persist($user);
