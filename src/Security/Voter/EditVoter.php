@@ -44,6 +44,6 @@ class EditVoter extends Voter
             return false;
         }
 
-        return $user === $subject->getAuthor() || $this->security->isGranted('ROLE_ADMIN');
+        return $user === $subject->getAuthor() || $this->security->isGranted('ROLE_MODO');
     }
 }

@@ -178,7 +178,9 @@ class InternshipController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $internship->setVisible(False);
+            if (!$this->isGranted('ROLE_MODO')) {
+                $internship->setVisible(False);
+            }
 
             $entityManager->persist($internship);
             $entityManager->flush();

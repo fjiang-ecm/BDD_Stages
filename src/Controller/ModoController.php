@@ -36,7 +36,6 @@ class ModoController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success','Votre catégorie a bien été créée');
-            return $this->redirectToRoute('admin');
         }
 
         return $this->render('modo/index.html.twig', [
