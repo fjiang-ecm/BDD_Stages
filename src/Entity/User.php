@@ -184,6 +184,11 @@ class User implements UserInterface
         return $this;
     }
 
+    public function is_modo()
+    {
+        return in_array('ROLE_MODO', $this->roles) || in_array('ROLE_ADMIN', $this->roles);
+    }
+
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.

@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\SearchUser;
 use App\Entity\User;
-use App\Form\CategoryType;
 use App\Form\SearchUserType;
 
 use Knp\Component\Pager\PaginatorInterface;
