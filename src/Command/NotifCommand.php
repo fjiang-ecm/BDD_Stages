@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class NotifCommand extends Command
 {
-    protected static $defaultName = 'NotifCommand';
+    protected static $defaultName = 'app:notif';
 
     private $em;
     private $mailer;
@@ -30,22 +30,20 @@ class NotifCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $users = $this->em->getRepository(User::class)->findAll();
+        $modos = $this->em->getRepository(User::class)->getModo();
         $nb = $this->em->getRepository(Internship::class)->getNbInvisibleInternships();
 
-        for($i = 0; $i < count($users); ++$i) {
-            if ($users[$i]->is_modo()){
-                $message = (new \Swift_Message("[BDD Stage] Stages en attente"))
-                    ->setFrom('no-reply@bdd-stage.com')
-                    ->setTo($users[$i]->getEmail())
-                    ->setBody("{$users[$i]->getFullName()},
+        foreach ($modos as $modo) {
+            $message = (new \Swift_Message("[BDD Stage] Stages en attente"))
+                ->setFrom('no-reply@bdd-stage.com')
+                ->setTo($modo->getEmail())
+                ->setBody("{$modo->getFullName()},
 
 Il y a {$nb} stages en attente de validation.
 
 L'équipe de BDD Stages");
 
-                $this->mailer->send($message);
-            }
+            $this->mailer->send($message);
         }
     }
 }

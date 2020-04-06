@@ -26,4 +26,15 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function getModo()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.roles IN (:admin, :modo)')
+            ->setParameter('admin', 'a:1:{i:0;s:10:"ROLE_ADMIN";}')
+            ->setParameter('modo', 'a:1:{i:0;s:9:"ROLE_MODO";}')
+            ->getQuery()
+            ->getResult();
+    }
 }
