@@ -21,7 +21,7 @@
                                     <i class="material-icons" style="font-size: 18px">visibility_off</i>
                                 {% endif %}
                                 {% if is_granted('edit', s) %}
-                                    <a href="/edit/{{ s.id }}"><i class="material-icons" style="font-size: 18px">edit</i></a>
+                                    <a href="{{ path('internship_edit', {'id': s.id}) }}"><i class="material-icons" style="font-size: 18px">edit</i></a>
                                 {% endif %}
                                 <small>{{ s.category }} / {{ s.duration }} mois<br>
                                     {{ s.company }}<br>

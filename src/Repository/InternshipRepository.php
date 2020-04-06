@@ -81,4 +81,15 @@ class InternshipRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getAlike(Internship $internship)
+    {
+        return $this->createQueryBuilder('i')
+            ->select('i')
+            ->where('i.id != :id AND i.visible = 1 AND i.category = :category AND i.duration = :duration')
+            ->setParameter('id', $internship->getId())
+            ->setParameter('category', $internship->getCategory())
+            ->setParameter('duration', $internship->getDuration())
+            ->getQuery();
+    }
 }

@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="header bg-green">
-                    <h2>{{ stage.title }}</h2>
+                    <h2>{{ stage.title }} <span data-target="#remove" data-toggle="modal"><i class="far fa-trash-alt"></i></span></h2>
                 </div>
 
                 <div class="body">
@@ -43,6 +43,27 @@
                     </div>
                     <button type="submit" class="btn btn-success">Soumettre</button>
                     {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="remove">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <h4 class="modal-title">Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sur de vouloir supprimer {{ form.vars.value.title }} !
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ path('internship_remove', {'id': form.vars.value.id}) }}" method="post">
+                        <input type="hidden" name="token" value="{{ csrf_token('remove') }}"/>
+                        <button class="btn bg-monVert">OUI</button>
+                        <button class="btn bg-monVert" data-dismiss="modal">NON</button>
+                    </form>
                 </div>
             </div>
         </div>

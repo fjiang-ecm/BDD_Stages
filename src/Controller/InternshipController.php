@@ -9,6 +9,7 @@ use App\Form\SearchInternshipType;
 
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -97,19 +98,8 @@ class InternshipController extends AbstractController
      */
     public function stage(Internship $stage, PaginatorInterface $paginator, Request $request)
     {
-        $id = $stage->getId();
-
-        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
-        $qb->select('i')
-            ->from('App:Internship', 'i')
-            ->where('i.id != :id AND i.visible = 1 AND i.category = :category AND i.duration = :duration')
-            ->setParameter('id', $id)
-            ->setParameter('category', $stage->getCategory())
-            ->setParameter('duration', $stage->getDuration());
-        $query = $qb->getQuery();
-
         $stages = $paginator->paginate(
-            $query,
+            $this->getDoctrine()->getRepository(Internship::class)->getAlike($stage),
             $request->query->getInt('page', 1),
             4
         );
@@ -121,10 +111,10 @@ class InternshipController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="internship_new")
+     * @Route("/internship/new", name="internship_new")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function new(Request $request)
+    public function internshipNew(Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -152,10 +142,10 @@ class InternshipController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="internship_edit")
+     * @Route("/internship/{id}/edit", name="internship_edit")
      * @Security("is_granted('edit', internship)")
      */
-    public function edit(Internship $internship, Request $request)
+    public function internshipEdit(Internship $internship, Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -179,5 +169,29 @@ class InternshipController extends AbstractController
             'form' => $form->createView(),
             'stage' => $internship
         ]);
+    }
+
+    /**
+     * @Route("/internship/{id}/remove", name="internship_remove", methods={"POST"})
+     * @Security("is_granted('edit', internship)")
+     */
+    public function internshipRemove(Internship $internship, Request $request)
+    {
+        if($request->request->get('token') && $this->isCsrfTokenValid('remove', $request->request->get('token'))){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($internship);
+            $entityManager->flush();
+
+            if($this->getUser() == $internship->getAuthor()) {
+                $this->addFlash('success', 'Votre stage a bien été supprimé');
+                return $this->redirectToRoute('home');
+            }
+            else {
+                $this->addFlash('success', "Le stage {$internship->getTitle()} a bien été supprimé");
+                return $this->redirectToRoute('internships_validation');
+            }
+        }
+
+        return new JsonResponse(['error' => 'Invalid csrf token.'], 403);
     }
 }

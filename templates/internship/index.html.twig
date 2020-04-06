@@ -56,7 +56,7 @@
                             <td>
                                 <a href="/stage/{{ stage.id }}">{{ stage.title }}</a>
                                 {% if is_granted('edit', stage) %}
-                                    <a href="/edit/{{ stage.id }}"><i class="material-icons" style="font-size: 14px">edit</i></a>
+                                    <a href="{{ path('internship_edit', {'id': stage.id}) }}"><i class="material-icons" style="font-size: 14px">edit</i></a>
                                 {% endif %}
                             </td>
                             <td>{{ stage.company }}</td>

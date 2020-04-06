@@ -46,14 +46,14 @@
                             <td>{{ u.lastName }}</td>
                             <td>
                                 {% if 'ROLE_ADMIN' in u.roles %}
-                                    <a href="{{ path('modo', {'id': u.id}) }}"><i class="material-icons">supervisor_account</i></a>
-                                    <a href="{{ path('destitute', {'id': u.id}) }}"><i class="material-icons">person</i></a>
+                                    <a href="{{ path('user_modo', {'id': u.id}) }}"><i class="material-icons red">supervisor_account</i></a>
+                                    <a href="{{ path('user_user', {'id': u.id}) }}"><i class="material-icons red">person</i></a>
                                 {% elseif 'ROLE_MODO' in u.roles %}
-                                    <a href="{{ path('admin', {'id': u.id}) }}"><i class="material-icons">verified_user</i></a>
-                                    <a href="{{ path('destitute', {'id': u.id}) }}"><i class="material-icons">person</i></a>
+                                    <a href="{{ path('user_admin', {'id': u.id}) }}"><i class="material-icons">verified_user</i></a>
+                                    <a href="{{ path('user_user', {'id': u.id}) }}"><i class="material-icons red">person</i></a>
                                 {% else %}
-                                    <a href="{{ path('admin', {'id': u.id}) }}"><i class="material-icons">verified_user</i></a>
-                                    <a href="{{ path('modo', {'id': u.id}) }}"><i class="material-icons">supervisor_account</i></a>
+                                    <a href="{{ path('user_admin', {'id': u.id}) }}"><i class="material-icons">verified_user</i></a>
+                                    <a href="{{ path('user_user', {'id': u.id}) }}"><i class="material-icons">supervisor_account</i></a>
                                 {% endif %}
                             </td>
                         </tr>

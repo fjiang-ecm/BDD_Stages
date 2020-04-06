@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
-{% block titre_page %}BDD Stages - Interface de Modération{% endblock %}
+{% block titre_page %}Modération - BDD Stages{% endblock %}
 
 {% block content %}
     <div class="of_card">
@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <a href="{{ path('mod_internships') }}">
+    <a href="{{ path('internships_validation') }}">
         <div class="col-md-4">
             <div class="info-box bg-teal hover-expand-effect">
                 <div class="icon">

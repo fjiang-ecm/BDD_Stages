@@ -15,12 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class ModoController
+ * @Route("/moderation")
  * @Security("is_granted('ROLE_MODO')")
  */
 class ModoController extends AbstractController
 {
     /**
-     * @Route("/moderation", name="moderation")
+     * @Route("/", name="moderation")
      */
     public function index(Request $request)
     {
@@ -47,9 +48,9 @@ class ModoController extends AbstractController
     }
 
     /**
-     * @Route("/moderation/stages", name="mod_internships")
+     * @Route("/stages", name="internships_validation")
      */
-    public function mod(PaginatorInterface $paginator, Request $request)
+    public function modify(PaginatorInterface $paginator, Request $request)
     {
         $stages = $paginator->paginate(
             $this->getDoctrine()->getRepository(Internship::class)->getInvisible(), /* query NOT result */
@@ -63,7 +64,7 @@ class ModoController extends AbstractController
     }
 
     /**
-     * @Route("/validate/{id}", name="validate")
+     * @Route("/internship/{id}/validate", name="internship_validate")
      */
     public function validate(Internship $internship, \Swift_Mailer $mailer)
     {
@@ -84,15 +85,47 @@ class ModoController extends AbstractController
             ->setTo($user->getEmail())
             ->setBody(
                 $this->renderView(
-                    'modo/validation.html.twig', [
+                    'modo/mail.html.twig', [
                         'user' => $user,
-                        'internship' => $internship
+                        'internship' => $internship,
+                        'action' => 'validé'
                     ]),
                 'text/html'
             );
 
         $mailer->send($message);
 
-        return $this->redirectToRoute('mod_internships');
+        return $this->redirectToRoute('internships_validation');
+    }
+
+    /**
+     * @Route("/internship/{id}/reject", name="internship_reject")
+     */
+    public function reject(Internship $internship, \Swift_Mailer $mailer)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($internship);
+        $entityManager->flush();
+
+        $this->addFlash('success',"Le stage {$internship->getTitle()} a bien été supprimé");
+
+        $user = $internship->getAuthor();
+
+        $message = (new \Swift_Message("[BDD Stage] Suppression de votre stage {$internship->getTitle()}"))
+            ->setFrom('no-reply@bdd-stage.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'modo/mail.html.twig', [
+                    'user' => $user,
+                    'internship' => $internship,
+                    'action' => 'rejeté'
+                ]),
+                'text/html'
+            );
+
+        $mailer->send($message);
+
+        return $this->redirectToRoute('internships_validation');
     }
 }

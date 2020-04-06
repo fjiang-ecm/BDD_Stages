@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class AdminController
+ * @Route("/admin")
  * @Security("is_granted('ROLE_ADMIN')")
  */
 class AdminController extends AbstractController
@@ -63,7 +64,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="admin")
+     * @Route("/user/{id}/admin", name="user_admin")
      */
     public function admin(User $user)
     {
@@ -79,7 +80,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/modo/{id}", name="modo")
+     * @Route("/user/{id}/modo", name="user_modo")
      */
     public function modo(User $user)
     {
@@ -95,7 +96,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/destitute/{id}", name="destitute")
+     * @Route("/user/{id}/user", name="user_user")
      */
     public function destitute(User $user)
     {

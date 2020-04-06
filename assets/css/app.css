@@ -48,6 +48,10 @@ nav .material-icons{
     color: #aaa;
 }
 
+.red{
+    color: red;
+}
+
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
     background-color: #4CAF50;
     border-color: #4CAF50;
@@ -86,4 +90,8 @@ td a{
 #grid{
     display: grid;
     grid-template-columns: 33% 33% 33%;
+}
+
+.modal-title{
+    color: black;
 }
