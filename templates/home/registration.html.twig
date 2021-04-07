@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block additionnal_body_class %}ls-closed login-page openbook{% endblock %}
+
+{% block titre_page %}BDD Stages - Inscription{% endblock %}
+
+{% block content %}
+        <div class="card" id="log">
+            <img src="https://wiki.centrale-marseille.fr/ginfo/_detail/logobest.png?id=index" height="100px" width="auto">
+
+            <div class="body">
+                {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_row(form.firstName, {'label': 'Prénom', 'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.lastName, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.userName, {'label': 'Nom d\'utilisateur', 'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.password, {'label': 'Mot de passe', 'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.confirm_password, {'label': 'Confirmer le mot de passe', 'attr': {'class': 'form-control'}}) }}
+                </div>
+                <button type="submit" class="btn btn-success">Inscription</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+{% endblock %}

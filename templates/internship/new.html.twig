@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block titre_page %}BDD Stages - Nouveau Stage{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header bg-green">
+                    <h2>Nouveau Stage</h2>
+                </div>
+
+                <div class="body">
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_row(form.title, {'label': 'Titre', 'attr': {'class': 'form-control'}}) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="grey">Catégorie *</div>
+                                {{ form_row(form.category, {'label': 'Catégorie', 'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">{{ form_row(form.company, {'label': 'Entreprise / Laboratoire', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-6">{{ form_row(form.contact, {'label': 'Contact', 'attr': {'class': 'form-control'}}) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{{ form_row(form.country, {'label': 'Pays', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-4">{{ form_row(form.city, {'label': 'Ville', 'attr': {'class': 'form-control'}}) }}</div>
+                            <div class="col-md-4">{{ form_row(form.postalCode, {'label': 'Code Postal', 'attr': {'class': 'form-control'}}) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{{ form_widget(form.startedOn) }}</div>
+                            <div class="col-md-4">{{ form_row(form.finishedOn) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="grey">Description *</div>
+                                {{ form_row(form.description) }}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Soumettre</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

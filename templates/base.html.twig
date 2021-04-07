@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <meta name="Content-Type" content="UTF-8">
+        <meta name="Content-Language" content="fr">
+        <meta name="Description" content="Plateforme de recensement des stages">
+        <meta name="Keywords" content="centrale, marseille, centrale marseille, annuaire, annuaire de stage, GInfo">
+        <meta name="Copyright" content="GINFO">
+        <title>{% block titre_page %}BDD Stages{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('build/vendor.css') }}" />
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
+        {% block page_css %}
+        {% endblock %}
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+
+    <body {% block additionnal_body_block %}{% endblock %} class="theme-green {% block additionnal_body_class %}{% endblock %}">
+        <nav class="navbar" style="background-color: #14814b;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    {% if is_granted('ROLE_USER') %}
+                        {% block mobile_collapse %}
+                            <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                        {% endblock %}
+                        <a href="javascript:void(0);" class="bars"></a>
+                    {% endif %}
+
+                    <a class="navbar-brand" href="/">BDD Stages</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if is_granted('ROLE_USER') %}
+                            <li><a href="" class="badge" style="background-color: #4CAF50;">{{ app.user.fullname }}</a></li>
+                            <li><a href="{{ path('logout') }}"><i class="material-icons">power_settings_new</i></a></li>
+                        {% endif %}
+                        <li class="visible-xs jumpline-mobile-menu"><a href="" class="special-icon-navbar"><i class="fas fa-user"></i> Connexion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section>
+            <aside id="leftsidebar" class="sidebar">
+                <div class="menu">
+                    <ul class="list">
+                        <li class="header" style="background: #4CAF50; color: white">Menu</li>
+                        <li>
+                            <a href="{{ path('internships') }}" id="link_add" class=" waves-effect waves-block">
+                                <i class="material-icons">search</i> <span>Liste des Stages</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('internships_my') }}" class=" waves-effect waves-block">
+                                <i class="material-icons">work</i> <span>Mes Stages</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('internship_new') }}" class=" waves-effect waves-block">
+                                <i class="material-icons">add</i> <span>Ajouter un Stage</span>
+                            </a>
+                        </li>
+                        {% if is_granted('ROLE_MODO') %}
+                            <li class="header" style="background: #4CAF50; color: white">Administration</li>
+                            <li>
+                                <a href="{{ path('moderation') }}" class=" waves-effect waves-block">
+                                    <i class="material-icons">vpn_key</i> <span>Panneau</span>
+                                </a>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('user') }}" class=" waves-effect waves-block">
+                                        <i class="material-icons">person</i> <span>Utilisateurs</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </aside>
+        </section>
+
+        <section class="content">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% block content %}
+
+            {% endblock %}
+        </section>
+
+        <script src="{{ asset('build/vendor.js') }}"></script>
+        <script src="{{ asset('build/app.js') }}"></script>
+        <script src="{{ asset('build/runtime.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

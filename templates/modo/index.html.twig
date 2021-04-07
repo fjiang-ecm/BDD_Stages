@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block titre_page %}Modération - BDD Stages{% endblock %}
+
+{% block content %}
+    <div class="of_card">
+        <div class="header bg-green">
+            <h2>Administration</h2>
+        </div>
+    </div>
+
+    <a href="{{ path('internships_validation') }}">
+        <div class="col-md-4">
+            <div class="info-box bg-teal hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">file_copy</i>
+                </div>
+                <div class="content">
+                    <div class="text">Stages en attente de modération</div>
+                    <div class="number">{{ nb_internships }}</div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <div class="col-md-4">
+        <div class="info-box bg-green hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">person</i>
+            </div>
+            <div class="content">
+                <div class="text">Utilisateurs inscrits</div>
+                <div class="number">{{ nb_users }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="info-box bg-light-green hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">folder</i>
+            </div>
+            <div class="content">
+                <div class="text">Catégories</div>
+                <div class="number">{{ nb_categories }}</div>
+            </div>
+        </div>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header bg-green">
+                        <h2>Nouvelle Catégorie</h2>
+                    </div>
+
+                    <div class="body">
+                        {{ form_start(form) }}
+                                <div class="col-md-6">{{ form_row(form.name, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}</div>
+                                <div class="col-md-5">{{ form_row(form.parent, {'label': 'Parent', 'attr': {'class': 'form-control'}}) }}</div>
+                                <div class="col-md-1"><button type="submit" class="btn btn-success">Créer</button></div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

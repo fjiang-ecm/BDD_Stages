@@ -1,0 +1,97 @@
+body{
+    background-color: lightgray;
+    color: white;
+}
+
+.login-page{
+    background-color: lightgray;
+}
+
+.card{
+    margin: auto;
+}
+
+#log{
+    margin: auto;
+    width: 400px;
+    text-align: center;
+}
+
+.material-icons{
+    color: #4CAF50;
+}
+
+nav .material-icons{
+    color: white;
+}
+
+.bg-monVert {
+    background-color: #14814b;
+    color: #fff !important;
+}
+
+.bg-blue-grey {
+    background-color: #607d8b !important;
+    color: #fff;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.form-group{
+    text-align: left;
+}
+
+.grey{
+    color: #aaa;
+}
+
+.red{
+    color: red;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus{
+    color: #4CAF50;
+}
+
+#sortable th{
+    color: #000;
+}
+
+td a{
+    color: #555;
+}
+
+.navigation{
+    text-align: center;
+}
+
+.of_card .header h2{
+    padding: 20px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.of_card .body .header{
+    padding: 8px;
+}
+
+.header a{
+    color: white;
+}
+
+#grid{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.modal-title{
+    color: black;
+}

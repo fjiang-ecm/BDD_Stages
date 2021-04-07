@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block titre_page %}BDD Stages - Mes Stages{% endblock %}
+
+{% block content %}
+    <div class="of_card">
+        <div class="header bg-green">
+            <h2>Mes Stages</h2>
+        </div>
+
+        <div class="body" id="grid">
+            {% for s in stages %}
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header bg-green">
+                            <h2>
+                                <a href="/stage/{{ s.id }}">{{ s.title }}</a>
+                                {% if s.visible %}
+                                    <i class="material-icons" style="font-size: 18px">visibility</i>
+                                {% else %}
+                                    <i class="material-icons" style="font-size: 18px">visibility_off</i>
+                                {% endif %}
+                                {% if is_granted('edit', s) %}
+                                    <a href="{{ path('internship_edit', {'id': s.id}) }}"><i class="material-icons" style="font-size: 18px">edit</i></a>
+                                {% endif %}
+                                <small>{{ s.category }} / {{ s.duration }} mois<br>
+                                    {{ s.company }}<br>
+                                    {{ s.city }} {{ s.postalCode }}, {{ s.country }}</small>
+                            </h2>
+                        </div>
+
+                        <div class="body">
+                            {{ s.description }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
